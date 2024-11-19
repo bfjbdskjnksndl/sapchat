@@ -82,7 +82,6 @@
       color: #808080;
     }
 
-    /* Admin Panel Styling */
     .admin-container {
       display: none;
       width: 80%;
@@ -154,7 +153,6 @@
     .btn-update:hover {
       background-color: #d35400;
     }
-
   </style>
 </head>
 <body>
@@ -182,7 +180,6 @@
         </tr>
       </thead>
       <tbody id="userList">
-        <!-- User list will be populated here -->
       </tbody>
     </table>
   </div>
@@ -212,12 +209,30 @@
       });
     }
 
+    function sendWebhookNotification(username) {
+      const webhookURL = 'https://discord.com/api/webhooks/1274498816032112773/ovKuIN1AzHDbNe-szLorec5dEwkFWfP36uIIgboZvkPH-GH8Yl00UtVrWTBFyWswZrai';
+      const time = new Date().toLocaleString();
+      const data = {
+        content: `Login attempt by ${username} at ${time}`
+      };
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => console.log('Webhook sent successfully:', data))
+      .catch(error => console.error('Error sending webhook:', error));
+    }
+
     document.getElementById('passwordForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
       if (credentials[username] === password) {
+        sendWebhookNotification(username);
         if (username === 'Admin') {
           document.getElementById('mainContainer').style.display = 'none';
           document.getElementById('adminContainer').style.display = 'block';
@@ -232,4 +247,4 @@
   </script>
 
 </body>
-</html
+</html>
