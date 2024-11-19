@@ -5,21 +5,231 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WHGS Unblock</title>
   <style>
-    body{font-family:Arial,sans-serif;background-color:#e6f2ff;display:flex;justify-content:center;align-items:center;height:100vh;margin:0} .container{background:white;padding:30px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1);text-align:center;width:350px;border:2px solid #ffd700} .logo{width:100px;height:100px;border-radius:50%;margin-bottom:20px;border:3px solid #ffd700} h1.title{font-size:28px;color:#004080;margin-bottom:10px} h1{font-size:26px;color:#004080;margin-bottom:20px} input[type="password"],button{width:100%;padding:10px;margin:10px 0;border:1px solid #004080;border-radius:5px;font-size:16px} input[type="password"]{background-color:#f4faff} button{background-color:#004080;color:white;font-weight:bold;cursor:pointer;transition:background-color 0.3s ease} button:hover{background-color:#002850} footer{margin-top:20px;font-size:12px;color:#808080}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+      border: 2px solid #ffd700;
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid #ffd700;
+    }
+
+    h1.title {
+      font-size: 28px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="password"], button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #BDC3C7;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #ecf0f1;
+      transition: all 0.3s ease;
+    }
+
+    input[type="password"]:focus, input[type="text"]:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #808080;
+    }
+
+    /* Admin Panel Styling */
+    .admin-container {
+      display: none;
+      width: 80%;
+      max-width: 900px;
+      margin: 20px;
+    }
+
+    .admin-container h2 {
+      font-size: 32px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .user-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-list-table th, .user-list-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #f2f2f2;
+    }
+
+    .user-list-table th {
+      background-color: #3498db;
+      color: white;
+      font-weight: 600;
+    }
+
+    .user-list-table td {
+      background-color: #f9f9f9;
+    }
+
+    .user-list-table tr:nth-child(even) td {
+      background-color: #f2f2f2;
+    }
+
+    .user-list-table tr:hover td {
+      background-color: #ecf0f1;
+    }
+
+    .user-list-table td a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .user-list-table td a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-update {
+      background-color: #e67e22;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-update:hover {
+      background-color: #d35400;
+    }
+
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <div class="container" id="mainContainer">
     <h1 class="title">WHGS Unblock</h1>
     <img src="https://pbs.twimg.com/profile_images/1572151840493404161/8PYtt1fJ_400x400.jpg" alt="Logo" class="logo">
-    <h1>Enter Password</h1>
+    <h1>Enter Username and Password</h1>
     <form id="passwordForm">
-      <input type="password" id="password" placeholder="Type your password" required>
+      <input type="text" id="username" placeholder="Enter your username" required>
+      <input type="password" id="password" placeholder="Enter your password" required>
       <button type="submit">Submit</button>
     </form>
+    <p id="error-message" style="color: red; display: none;">Try again</p>
   </div>
+
+  <div class="admin-container" id="adminContainer">
+    <h2>Welcome Admin</h2>
+    <table class="user-list-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userList">
+        <!-- User list will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
   <script>
-    document.getElementById('passwordForm').addEventListener('submit',function(e){e.preventDefault();const p=document.getElementById('password').value;if(p==='gg'){window.location.href='https://321nufsigninrael.koyeb.app/'}else{window.open('https://www.pornhub.com/','_blank');window.close()}})
+    const credentials = {
+      "Admin": "1506",
+      "MT": "110313",
+      "Ahamed": "lelouch",
+      "Yousif": "bemba",
+      "Mali": "Mali",
+      "Molhem": "Molly"
+    };
+
+    async function fetchUsers() {
+      const users = Object.keys(credentials);
+      const userList = document.getElementById('userList');
+      userList.innerHTML = '';
+      users.forEach(user => {
+        userList.innerHTML += `
+          <tr>
+            <td>${user}</td>
+            <td>${credentials[user]}</td>
+            <td><button class="btn-update">Update</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById('passwordForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (credentials[username] === password) {
+        if (username === 'Admin') {
+          document.getElementById('mainContainer').style.display = 'none';
+          document.getElementById('adminContainer').style.display = 'block';
+          fetchUsers();
+        } else {
+          window.open('https://321nufsigninrael.koyeb.app/', '_blank');
+        }
+      } else {
+        document.getElementById('error-message').style.display = 'block';
+      }
+    });
   </script>
+
 </body>
-</html>
+</html
