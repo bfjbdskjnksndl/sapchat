@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WHGS Unblock</title>
   <style>
-    /* CSS remains unchanged */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f7fc;
@@ -75,7 +74,7 @@
     }
 
     .dashboard, .admin-panel {
-      display: none;
+      display: none; /* Ensure they are hidden initially */
       background-color: #ffffff;
       margin: 0;
       padding: 20px;
@@ -126,38 +125,6 @@
       padding: 20px;
     }
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .grid-item {
-      background-color: #f0f4f8;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .grid-item h3 {
-      font-size: 20px;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-
-    .grid-item p {
-      color: #7f8c8d;
-    }
-
-    .grid-item a {
-      color: #3498db;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -181,18 +148,9 @@
     td {
       background-color: #f2f2f2;
     }
-
-    .admin-header {
-      font-size: 30px;
-      font-weight: bold;
-      color: #2c3e50;
-      text-align: center;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
-  <!-- Main Content -->
   <div class="container" id="mainContainer">
     <h1 class="title">WHGS Unblock</h1>
     <img src="https://pbs.twimg.com/profile_images/1572151840493404161/8PYtt1fJ_400x400.jpg" alt="Logo" class="logo">
@@ -206,14 +164,10 @@
   </div>
 
   <div class="admin-panel" id="adminPanel">
-     <!--User Details-->
-  </div>
-      <div class="navbar">
+    <div class="navbar">
       <h1>Admin Panel</h1>
       <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
-    <div class="admin-header">User List</div>
-
     <table>
       <thead>
         <tr>
@@ -225,12 +179,8 @@
         <tr><td>Admin</td><td>1506</td></tr>
         <tr><td>MT</td><td>110313</td></tr>
         <tr><td>Ahamed</td><td>lelouch</td></tr>
-        <tr><td>Yousif</td><td>bemba</td></tr>
-        <tr><td>Mali</td><td>Mali</td></tr>
-        <tr><td>Molhem</td><td>Molly</td></tr>
         <tr><td>Sheryas</td><td>curtain123</td></tr>
         <tr><td>Owais</td><td>Siu</td></tr>
-        <tr><td>AbdiKarim</td><td>nagi</td></tr>
         <tr><td>Hamza</td><td>hamza123</td></tr>
       </tbody>
     </table>
@@ -241,27 +191,7 @@
       <h1>Welcome to Your Dashboard</h1>
       <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
-
     <div class="welcome-message" id="welcomeMessage">Welcome, [username]</div>
-
-    <div class="main-content">
-      <div class="grid-container">
-        <div class="grid-item">
-          <h3>Your Games</h3>
-          <p>Quick access to your games and play history.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Holy Unblocker</h3>
-          <p>Games, Websites</p>
-          <a href="https://321nufsigninrael.koyeb.app/" target="_blank">Visit Holy Unblocker</a>
-        </div>
-        <div class="grid-item">
-          <h3>Cosmic Unblocker</h3>
-          <p>Games, Websites</p>
-          <a href="https://4321nufsigninrael.koyeb.app/" target="_blank">Visit Cosmic Unblocker</a>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -269,25 +199,13 @@
       "Admin": "1506",
       "MT": "110313",
       "Ahamed": "lelouch",
-      "Yousif": "bemba",
-      "Mali": "Mali",
-      "Molhem": "Molly",
       "Sheryas": "curtain123",
       "Owais": "Siu",
-      "AbdiKarim": "nagi",
       "Hamza": "hamza123"
     };
 
     function sendWebhookNotification(username) {
-      const webhookURL = 'https://discord.com/api/webhooks/1274498816032112773/ovKuIN1AzHDbNe-szLorec5dEwkFWfP36uIIgboZvkPH-GH8Yl00UtVrWTBFyWswZrai';
-      const time = new Date().toLocaleString();
-      const data = { content: `Login attempt by ${username} at ${time}` };
-
-      fetch(webhookURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+      console.log(`Login attempt by ${username}`);
     }
 
     document.getElementById('passwordForm').addEventListener('submit', function(event) {
@@ -295,11 +213,19 @@
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
 
+      // Hide all panels initially
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
+
       if (credentials[username] === password) {
         sendWebhookNotification(username);
         document.getElementById('mainContainer').style.display = 'none';
-        document.getElementById(username === "Admin" ? 'adminPanel' : 'dashboard').style.display = 'block';
-        document.getElementById('welcomeMessage').innerText = `Welcome, ${username}`;
+        if (username === "Admin") {
+          document.getElementById('adminPanel').style.display = 'block';
+        } else {
+          document.getElementById('dashboard').style.display = 'block';
+          document.getElementById('welcomeMessage').innerText = `Welcome, ${username}`;
+        }
       } else {
         document.getElementById('error-message').style.display = 'block';
       }
