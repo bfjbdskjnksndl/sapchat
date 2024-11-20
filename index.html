@@ -73,13 +73,23 @@
       background-color: #2980b9;
     }
 
-    .dashboard, .admin-panel {
-      display: none; /* Ensure they are hidden initially */
+    .dashboard {
+      display: none;
       background-color: #ffffff;
       margin: 0;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-panel {
+      display: none;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
     }
 
     .navbar {
@@ -98,17 +108,17 @@
       margin: 0;
     }
 
-    .logout-btn {
+    .navbar .logout-btn {
       background-color: red;
       color: white;
-      padding: 6px 12px;
+      padding: 4px 8px;
       font-weight: bold;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    .logout-btn:hover {
+    .navbar .logout-btn:hover {
       background-color: #e74c3c;
     }
 
@@ -125,6 +135,63 @@
       padding: 20px;
     }
 
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .grid-item {
+      background-color: #f0f4f8;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .grid-item h3 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .grid-item p {
+      color: #7f8c8d;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 4px solid #3498db;
+    }
+
+    .coming-soon {
+      color: #e67e22;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .grid-item a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .notification-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Admin Panel Specific Styles */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -148,9 +215,19 @@
     td {
       background-color: #f2f2f2;
     }
+
+    .admin-header {
+      font-size: 30px;
+      font-weight: bold;
+      color: #2c3e50;
+      text-align: center;
+      margin-top: 20px;
+    }
+
   </style>
 </head>
 <body>
+
   <div class="container" id="mainContainer">
     <h1 class="title">WHGS Unblock</h1>
     <img src="https://pbs.twimg.com/profile_images/1572151840493404161/8PYtt1fJ_400x400.jpg" alt="Logo" class="logo">
@@ -163,11 +240,46 @@
     <p id="error-message" style="color: red; display: none;">Invalid credentials, try again.</p>
   </div>
 
+  <div class="dashboard" id="dashboard">
+    <div class="navbar">
+      <h1>Welcome to Your Dashboard</h1>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="welcome-message" id="welcomeMessage">Welcome, [username]</div>
+
+    <div class="main-content">
+      <!-- Removed logo from dashboard -->
+      <img src="https://pbs.twimg.com/profile_images/1572151840493404161/8PYtt1fJ_400x400.jpg" alt="Profile Picture" class="profile-pic">
+      
+      <div class="grid-container">
+        <div class="grid-item">
+          <h3>Your Games</h3>
+          <p>Quick access to your games and play history.</p>
+        </div>
+        <div class="grid-item">
+          <h3>Holy Unblocker</h3>
+          <p>Games, Websites</p>
+          <a href="https://321nufsigninrael.koyeb.app/" target="_blank">Visit Holy Unblocker</a>
+        </div>
+        <div class="grid-item">
+          <h3>Cosmic Unblocker</h3>
+          <p>Games, Websites</p>
+          <a href="https://4321nufsigninrael.koyeb.app/" target="_blank">Visit Cosmic Unblocker</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Panel -->
   <div class="admin-panel" id="adminPanel">
     <div class="navbar">
       <h1>Admin Panel</h1>
       <button class="logout-btn" onclick="logout()">Logout</button>
     </div>
+
+    <div class="admin-header">User List</div>
+
     <table>
       <thead>
         <tr>
@@ -182,20 +294,12 @@
         <tr><td>Yousif</td><td>bemba</td></tr>
         <tr><td>Mali</td><td>Mali</td></tr>
         <tr><td>Molhem</td><td>Molly</td></tr>
-        <tr><td>Sheryas</td><td>curtain123</td></tr>
+        <tr><td>AbdiKarim</td><td>Nagi</td></tr>
         <tr><td>Owais</td><td>Siu</td></tr>
-        <tr><td>AbdiKarim</td><td>nagi</td></tr>
         <tr><td>Hamza</td><td>hamza123</td></tr>
+        <tr><td>Sheryas</td><td>curtain123</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="dashboard" id="dashboard">
-    <div class="navbar">
-      <h1>Welcome to Your Dashboard</h1>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-    <div class="welcome-message" id="welcomeMessage">Welcome, [username]</div>
   </div>
 
   <script>
@@ -205,47 +309,58 @@
       "Ahamed": "lelouch",
       "Yousif": "bemba",
       "Mali": "Mali",
-      "Molhem": "Molly",
-      "Sheryas": "curtain123",
-      "Owais": "Siu",
-      "AbdiKarim": "nagi",
+      "Sheryas": "curtain123"
+      "AbdiKarim": "Nagi"
+      "Owais": "Siu"
       "Hamza": "hamza123"
+      
     };
 
     function sendWebhookNotification(username) {
-      console.log(`Login attempt by ${username}`);
+      const webhookURL = 'https://discord.com/api/webhooks/1274498816032112773/ovKuIN1AzHDbNe-szLorec5dEwkFWfP36uIIgboZvkPH-GH8Yl00UtVrWTBFyWswZrai';
+      const time = new Date().toLocaleString();
+      const data = {
+        content: `Login attempt by ${username} at ${time}`
+      };
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => console.log('Webhook sent'))
+      .catch(error => console.error('Error sending webhook:', error));
     }
 
-    document.getElementById('passwordForm').addEventListener('submit', function(event) {
+    function login(event) {
       event.preventDefault();
-      const username = document.getElementById('username').value.trim();
+      const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      document.getElementById('adminPanel').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'none';
-
       if (credentials[username] === password) {
-        sendWebhookNotification(username);
-        document.getElementById('mainContainer').style.display = 'none';
         if (username === "Admin") {
+          document.getElementById('mainContainer').style.display = 'none';
           document.getElementById('adminPanel').style.display = 'block';
         } else {
+          document.getElementById('mainContainer').style.display = 'none';
           document.getElementById('dashboard').style.display = 'block';
           document.getElementById('welcomeMessage').innerText = `Welcome, ${username}`;
         }
+        sendWebhookNotification(username);
       } else {
         document.getElementById('error-message').style.display = 'block';
       }
-    });
+    }
 
     function logout() {
+      document.getElementById('mainContainer').style.display = 'block';
       document.getElementById('dashboard').style.display = 'none';
       document.getElementById('adminPanel').style.display = 'none';
-      document.getElementById('mainContainer').style.display = 'block';
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-      document.getElementById('error-message').style.display = 'none';
     }
+
+    document.getElementById('passwordForm').addEventListener('submit', login);
   </script>
+
 </body>
-</html>
+</html> fix the code
