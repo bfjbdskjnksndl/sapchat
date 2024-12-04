@@ -42,23 +42,36 @@
             width: 30px;
             height: 30px;
             margin-right: 10px;
-            border-radius: 50%;
         }
         #iframe-container {
-            display: none;
+            display: none; /* Initially hidden */
             margin-top: 20px;
         }
         iframe {
             border: none;
-            width: 100%; /* Full width */
-            height: 85%; /* Almost full height */
+            width: 100%; /* Make iframe fill available space */
+            height: 100%; /* Make iframe take up entire screen */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
     <script>
         function showIframe() {
-            document.getElementById('iframe-container').style.display = 'block';
+            var iframeContainer = document.getElementById('iframe-container');
+            iframeContainer.style.display = 'block';
+            enterFullScreen(iframeContainer);
+        }
+
+        function enterFullScreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { // Firefox
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { // IE/Edge
+                element.msRequestFullscreen();
+            }
         }
     </script>
 </head>
@@ -67,7 +80,7 @@
     <div class="button-container">
         <button class="snapchat-button" onclick="showIframe()">
             <img src="https://pbs.twimg.com/profile_images/1840822616405180416/nKBnrqRE_400x400.jpg" alt="Snapchat Logo">
-            Log in with Snapchat (For Whitelist)
+            Log into Snapchat (For Whitelist)
         </button>
     </div>
     <div id="iframe-container">
